@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 Route::get('import-excel', [UserController::class, 'import_excel']);
 Route::post('import-excel', [UserController::class, 'import_excel_post']);
+Route::get('export-excel', [UserController::class, 'export_excel']);
