@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\UserImport;
 use Illuminate\Http\Request;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -12,6 +12,8 @@ class UserController extends Controller
         return view('import_excel');
     }
     public function import_excel_post(Request $request){
-        Excel::import(new UserImport, $request->file('excel_file;'));
+        Excel::import(new UserImport, $request->file('excel_file'));
+
+        return redirect()->back();
     }
 }

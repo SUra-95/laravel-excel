@@ -12,21 +12,29 @@ class UserImport implements ToCollection, ToModel
 {
     private $current = 0;
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function collection(Collection $collection)
     {
-        dd($collection);
+        // dd($collection);
     }
 
-    public function model(array $row){
-        $this->current ++;
-        if($this->current > 1){
-            $user = new User;
-            $user->name = $row[0];            
-            $user->email = $row[1];
-            $user->password = Hash::make($row[2]);            
-            $user->save();
+    public function model(array $row)
+    {
+        $this->current++;
+
+        // $count = User::where('email', '=', $row[2]->count());
+
+        $email = $row[2];
+        $count = User::where('email', $email)->count();
+        if (empty($count)) {
+            if ($this->current > 1) {
+                $user = new User;
+                $user->name = $row[1];
+                $user->email = $row[2];
+                $user->password = Hash::make($row[3]);
+                $user->save();
+            }
         }
     }
 }
