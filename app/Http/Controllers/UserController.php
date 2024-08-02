@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportUser;
 use App\Imports\UserImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,5 +16,8 @@ class UserController extends Controller
         Excel::import(new UserImport, $request->file('excel_file'));
 
         return redirect()->back();
+    }
+    public function export_excel(){
+        return Excel::download(new ExportUser, 'user.xlsx');
     }
 }
